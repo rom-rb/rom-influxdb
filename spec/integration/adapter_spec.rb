@@ -15,6 +15,7 @@ describe 'ROM / InfluxDB / Setup' do
 
     users.insert('name' => 'Oskar')
 
-    expect(users.to_a).to include([{ 'name' => 'Oskar' }])
+    expect(users.to_a.size).to eq(1)
+    expect(users.to_a[0]).to include('name' => 'Oskar')
   end
 end

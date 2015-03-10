@@ -3,7 +3,6 @@ module ROM
     class Relation < ROM::Relation
       def insert(object)
         dataset << object
-        self
       end
     end
   end

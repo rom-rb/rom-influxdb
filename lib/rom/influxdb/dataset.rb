@@ -22,7 +22,7 @@ module ROM
       private
 
       def with_set
-        yield(connection.query("select * from #{name}"))
+        yield(connection.query("select * from #{name}")[name])
       end
     end
   end
