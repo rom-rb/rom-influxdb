@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'ROM / InfluxDB / Setup' do
   before do
-    ROM.setup(:influxdb)
+    ROM.setup(:influxdb, 'influxdb://localhost/db')
   end
 
   let(:rom) { ROM.finalize.env }

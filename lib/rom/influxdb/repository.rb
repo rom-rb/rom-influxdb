@@ -6,8 +6,8 @@ module ROM
     class Repository < ROM::Repository
       attr_reader :sets
 
-      def initialize
-        @connection = ::InfluxDB::Client.new('db')
+      def initialize(uri, options = {})
+        @connection = connect(uri, options)
         @sets = {}
       end
 
@@ -21,6 +21,17 @@ module ROM
 
       def dataset?(name)
         connection.get_database_list.include?(name)
+      end
+
+      private
+
+      def connect(uri, options)
+        uri = URI.parse(uri)
+        host = uri.host
+        port = uri.port
+        dbname = uri.path[1..-1]
+        params = { host: host, port: port }.merge(options)
+        ::InfluxDB::Client.new(dbname, params)
       end
     end
   end
