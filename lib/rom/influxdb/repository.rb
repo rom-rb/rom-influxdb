@@ -1,5 +1,6 @@
 require 'rom/influxdb/dataset'
 require 'rom/influxdb/relation'
+require 'rom/influxdb/commands'
 
 module ROM
   module InfluxDB
@@ -52,7 +53,14 @@ module ROM
       #
       # @api public
       def dataset?(name)
-        connection.get_database_list.include?(name)
+        connection.query("select * from #{name} limit 1")
+        true
+      rescue ::InfluxDB::Error
+        false
+      end
+
+      def command_namespace
+        InfluxDB::Commands
       end
 
       private
