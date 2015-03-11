@@ -19,10 +19,18 @@ module ROM
       end
       alias_method :<<, :insert
 
+      def where(query)
+        connection.query("SELECT * FROM #{name} WHERE #{query}")[name]
+      end
+
+      def query(what = '*')
+        connection.query("SELECT #{what} FROM #{name}")[name]
+      end
+
       private
 
       def with_set
-        yield(connection.query("select * from #{name}")[name])
+        yield(query)
       end
     end
   end
