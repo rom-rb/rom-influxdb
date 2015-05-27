@@ -2,17 +2,17 @@ require 'spec_helper'
 
 require 'rom/lint/spec'
 
-describe ROM::InfluxDB::Repository do
-  let(:repository) { ROM::InfluxDB::Repository }
+describe ROM::InfluxDB::Gateway do
+  let(:gateway) { ROM::InfluxDB::Gateway }
   let(:uri) { 'influxdb://localhost' }
 
-  it_behaves_like "a rom repository" do
+  it_behaves_like "a rom gateway" do
     let(:identifier) { :influxdb }
   end
 
   describe '.new' do
     context 'default values' do
-      let(:connection) { repository.new(uri).connection }
+      let(:connection) { gateway.new(uri).connection }
 
       it 'returns them' do
         expect(connection.database).to be_nil
@@ -26,7 +26,7 @@ describe ROM::InfluxDB::Repository do
     context 'overwritten values' do
       let(:uri) { 'influxdb://somewhere:9999/rom' }
       let(:opts) { { username: 'john', password: 'doe' } }
-      let(:connection) { repository.new(uri, opts).connection }
+      let(:connection) { gateway.new(uri, opts).connection }
 
       it 'allows to set dbname in url' do
         expect(connection.database).to eql('rom')

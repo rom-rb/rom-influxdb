@@ -4,10 +4,10 @@ require 'rom/influxdb/commands'
 
 module ROM
   module InfluxDB
-    class Repository < ROM::Repository
+    class Gateway < ROM::Gateway
       attr_reader :sets
 
-      # InfluxDB repository interface
+      # InfluxDB gateway interface
       #
       # @overload connect(uri, options)
       #   Connects to database via uri passing options
@@ -16,7 +16,7 @@ module ROM
       #   @param [Hash] options connection options
       #
       # @example
-      #   repository = ROM::InfluxDB::Repository.new('influxdb://localhost/rom',
+      #   gateway = ROM::InfluxDB::Gateway.new('influxdb://localhost/rom',
       #     { username: 'foo', password: 'bar' })
       #
       # @api public

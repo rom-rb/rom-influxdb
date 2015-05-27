@@ -2,11 +2,11 @@ require 'spec_helper'
 
 require 'virtus'
 
-describe 'InfluxDB repository' do
+describe 'InfluxDB gateway' do
   subject(:rom) { setup.finalize }
 
   let(:setup) { ROM.setup(:influxdb, 'influxdb://localhost/db') }
-  let(:repository) { rom.repositories[:default] }
+  let(:gateway) { rom.gateways[:default] }
 
   before do
     setup.relation(:users) do
@@ -47,13 +47,13 @@ describe 'InfluxDB repository' do
     end
   end
 
-  describe 'repository#dataset?' do
+  describe 'gateway#dataset?' do
     it 'returns true if a collection exists' do
-      expect(repository.dataset?(:users)).to be(true)
+      expect(gateway.dataset?(:users)).to be(true)
     end
 
     it 'returns false if a does not collection exist' do
-      expect(repository.dataset?(:not_here)).to be(false)
+      expect(gateway.dataset?(:not_here)).to be(false)
     end
   end
 
